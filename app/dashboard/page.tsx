@@ -2,46 +2,60 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getSavedNotes } from "@/lib/storage";
 
 export default function DashboardPage() {
-  const [teacherName, setTeacherName] = useState("");
+  const router = useRouter();
   const [noteCount, setNoteCount] = useState(0);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setTeacherName(localStorage.getItem("classsupport_teacher") || "Teacher");
+    const isLoggedIn = localStorage.getItem("classsupport_isLoggedIn");
+    if (isLoggedIn !== "true") {
+      router.replace("/login");
+      return;
+    }
     setNoteCount(getSavedNotes().length);
-  }, []);
+    setReady(true);
+  }, [router]);
+
+  if (!ready) {
+    return (
+      <div className="flex items-center justify-center min-h-[80vh]">
+        <p className="text-gray-mid">Loading...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">Hello, {teacherName}</h1>
-        <p className="text-gray-mid mt-1">What can we help with today?</p>
+        <h1 className="text-3xl font-bold">Welcome back</h1>
+        <p className="text-gray-mid mt-2 max-w-lg">
+          Generate practical classroom strategies based on pupil behaviour,
+          attention, or anxiety concerns.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="flex flex-col sm:flex-row gap-3">
         <Link
           href="/new-response"
-          className="rounded-xl border border-border bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+          className="flex-1 py-4 rounded-lg bg-accent text-white font-semibold text-lg text-center hover:bg-accent-hover transition-colors"
         >
-          <h2 className="font-semibold text-lg mb-1">New Response</h2>
-          <p className="text-sm text-gray-mid">
-            Get AI-powered support for a classroom concern.
-          </p>
+          Create New Support Response
         </Link>
-
         <Link
           href="/saved-notes"
-          className="rounded-xl border border-border bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+          className="flex-1 py-4 rounded-lg border-2 border-accent text-accent font-semibold text-lg text-center hover:bg-green-50 transition-colors"
         >
-          <h2 className="font-semibold text-lg mb-1">Saved Notes</h2>
-          <p className="text-sm text-gray-mid">
-            {noteCount === 0
-              ? "No saved notes yet."
-              : `You have ${noteCount} saved note${noteCount === 1 ? "" : "s"}.`}
-          </p>
+          View Saved Notes
         </Link>
+      </div>
+
+      <div className="rounded-xl border border-border bg-white p-5 shadow-sm inline-block">
+        <p className="text-sm text-gray-mid">Notes saved</p>
+        <p className="text-3xl font-bold mt-1">{noteCount}</p>
       </div>
     </div>
   );
