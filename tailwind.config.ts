@@ -17,6 +17,15 @@ const config: Config = {
         "gray-light": "#f9fafb",
         "gray-mid": "#6b7280",
       },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateX(-50%) translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateX(-50%) translateY(0)" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.3s ease-out",
+      },
     },
   },
   plugins: [],

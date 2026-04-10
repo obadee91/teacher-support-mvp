@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getSavedNotes } from "@/lib/storage";
+import { getNotes } from "@/lib/storage";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function DashboardPage() {
       router.replace("/login");
       return;
     }
-    setNoteCount(getSavedNotes().length);
+    setNoteCount(getNotes().length);
     setReady(true);
   }, [router]);
 

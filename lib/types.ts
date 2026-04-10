@@ -23,13 +23,11 @@ export interface GenerateResponse {
 
 export interface SavedNote {
   id: string;
-  studentName: string;
+  date: string;
   concern: string;
-  interpretation: string;
-  strategies: string[];
-  scripts: string[];
-  nextSteps: string[];
-  escalation: string;
-  disclaimer: string;
-  createdAt: string;
+  observations: string[];
+  teacherNotes: string;
+  generatedResponse: GenerateResponse;
+  pupilId: string;
+  note: string;
 }

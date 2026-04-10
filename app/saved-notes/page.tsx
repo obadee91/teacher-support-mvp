@@ -1,16 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import SavedNotesList from "@/components/SavedNotesList";
-import { getSavedNotes } from "@/lib/storage";
+import { getNotes } from "@/lib/storage";
 import { SavedNote } from "@/lib/types";
 
 export default function SavedNotesPage() {
+  const router = useRouter();
   const [notes, setNotes] = useState<SavedNote[]>([]);
 
   useEffect(() => {
-    setNotes(getSavedNotes());
-  }, []);
+    const isLoggedIn = localStorage.getItem("classsupport_isLoggedIn");
+    if (isLoggedIn !== "true") {
+      router.replace("/login");
+      return;
+    }
+    setNotes(getNotes());
+  }, [router]);
 
   const handleDelete = (id: string) => {
     setNotes((prev) => prev.filter((n) => n.id !== id));

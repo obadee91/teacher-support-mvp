@@ -48,65 +48,74 @@ export default function SavedNotesList({ notes, onDelete }: Props) {
 
   return (
     <div className="space-y-4">
-      {notes.map((note) => (
-        <div
-          key={note.id}
-          className="rounded-xl border border-border bg-white p-5 shadow-sm"
-        >
-          <div className="flex justify-between items-start mb-3">
-            <div>
-              <h3 className="font-semibold">{note.studentName}</h3>
-              <p className="text-xs text-gray-mid">
-                {new Date(note.createdAt).toLocaleDateString()} &middot;{" "}
-                {note.concern}
-              </p>
+      {notes.map((note) => {
+        const r = note.generatedResponse;
+        return (
+          <div
+            key={note.id}
+            className="rounded-xl border border-border bg-white p-5 shadow-sm"
+          >
+            <div className="flex justify-between items-start mb-3">
+              <div>
+                <h3 className="font-semibold">{note.pupilId}</h3>
+                <p className="text-xs text-gray-mid">
+                  {note.date} &middot; {note.concern}
+                </p>
+              </div>
+              <button
+                onClick={() => handleDelete(note.id)}
+                className="text-sm text-red-500 hover:text-red-700 font-medium"
+              >
+                Delete
+              </button>
             </div>
-            <button
-              onClick={() => handleDelete(note.id)}
-              className="text-sm text-red-500 hover:text-red-700 font-medium"
-            >
-              Delete
-            </button>
+
+            {note.note && (
+              <div className="mb-3 rounded-lg bg-gray-light p-3">
+                <SectionLabel>Teacher Note</SectionLabel>
+                <p className="text-sm whitespace-pre-wrap">{note.note}</p>
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <div>
+                <SectionLabel>Interpretation</SectionLabel>
+                <p className="text-sm whitespace-pre-wrap">{r.interpretation}</p>
+              </div>
+
+              {r.strategies.length > 0 && (
+                <div>
+                  <SectionLabel>Strategies</SectionLabel>
+                  <BulletList items={r.strategies} />
+                </div>
+              )}
+
+              {r.scripts.length > 0 && (
+                <div>
+                  <SectionLabel>Example Scripts</SectionLabel>
+                  <BulletList items={r.scripts} />
+                </div>
+              )}
+
+              {r.nextSteps.length > 0 && (
+                <div>
+                  <SectionLabel>Next Steps</SectionLabel>
+                  <BulletList items={r.nextSteps} />
+                </div>
+              )}
+
+              <div>
+                <SectionLabel>When to Escalate</SectionLabel>
+                <p className="text-sm whitespace-pre-wrap">{r.escalation}</p>
+              </div>
+
+              <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
+                <p className="text-xs text-amber-800">{r.disclaimer}</p>
+              </div>
+            </div>
           </div>
-
-          <div className="space-y-3">
-            <div>
-              <SectionLabel>Interpretation</SectionLabel>
-              <p className="text-sm whitespace-pre-wrap">{note.interpretation}</p>
-            </div>
-
-            {note.strategies.length > 0 && (
-              <div>
-                <SectionLabel>Strategies</SectionLabel>
-                <BulletList items={note.strategies} />
-              </div>
-            )}
-
-            {note.scripts.length > 0 && (
-              <div>
-                <SectionLabel>Example Scripts</SectionLabel>
-                <BulletList items={note.scripts} />
-              </div>
-            )}
-
-            {note.nextSteps.length > 0 && (
-              <div>
-                <SectionLabel>Next Steps</SectionLabel>
-                <BulletList items={note.nextSteps} />
-              </div>
-            )}
-
-            <div>
-              <SectionLabel>When to Escalate</SectionLabel>
-              <p className="text-sm whitespace-pre-wrap">{note.escalation}</p>
-            </div>
-
-            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
-              <p className="text-xs text-amber-800">{note.disclaimer}</p>
-            </div>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

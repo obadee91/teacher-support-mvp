@@ -131,6 +131,8 @@ export default function NewResponsePage() {
           <SaveNoteForm
             result={result}
             concern={concern}
+            observations={observations}
+            teacherNotes={notes}
             onSaved={() => {}}
           />
         </div>
