@@ -13,17 +13,23 @@ export interface GenerateRequest {
 }
 
 export interface GenerateResponse {
-  response: string;
+  interpretation: string;
   strategies: string[];
-  followUp: string;
+  scripts: string[];
+  nextSteps: string[];
+  escalation: string;
+  disclaimer: string;
 }
 
 export interface SavedNote {
   id: string;
   studentName: string;
   concern: string;
-  response: string;
+  interpretation: string;
   strategies: string[];
-  followUp: string;
+  scripts: string[];
+  nextSteps: string[];
+  escalation: string;
+  disclaimer: string;
   createdAt: string;
 }

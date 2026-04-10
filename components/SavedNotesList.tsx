@@ -8,6 +8,27 @@ interface Props {
   onDelete: (id: string) => void;
 }
 
+function BulletList({ items }: { items: string[] }) {
+  return (
+    <ul className="text-sm space-y-1">
+      {items.map((s, i) => (
+        <li key={i} className="flex gap-2">
+          <span className="text-accent">&#x2022;</span>
+          <span>{s}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-xs font-semibold text-gray-mid uppercase mb-1">
+      {children}
+    </p>
+  );
+}
+
 export default function SavedNotesList({ notes, onDelete }: Props) {
   if (notes.length === 0) {
     return (
@@ -47,29 +68,42 @@ export default function SavedNotesList({ notes, onDelete }: Props) {
               Delete
             </button>
           </div>
-          <p className="text-sm leading-relaxed mb-3 whitespace-pre-wrap">
-            {note.response}
-          </p>
-          {note.strategies.length > 0 && (
-            <div className="mb-3">
-              <p className="text-xs font-semibold text-gray-mid uppercase mb-1">
-                Strategies
-              </p>
-              <ul className="text-sm space-y-1">
-                {note.strategies.map((s, i) => (
-                  <li key={i} className="flex gap-2">
-                    <span className="text-accent">&#x2022;</span>
-                    <span>{s}</span>
-                  </li>
-                ))}
-              </ul>
+
+          <div className="space-y-3">
+            <div>
+              <SectionLabel>Interpretation</SectionLabel>
+              <p className="text-sm whitespace-pre-wrap">{note.interpretation}</p>
             </div>
-          )}
-          <div>
-            <p className="text-xs font-semibold text-gray-mid uppercase mb-1">
-              Follow-Up
-            </p>
-            <p className="text-sm whitespace-pre-wrap">{note.followUp}</p>
+
+            {note.strategies.length > 0 && (
+              <div>
+                <SectionLabel>Strategies</SectionLabel>
+                <BulletList items={note.strategies} />
+              </div>
+            )}
+
+            {note.scripts.length > 0 && (
+              <div>
+                <SectionLabel>Example Scripts</SectionLabel>
+                <BulletList items={note.scripts} />
+              </div>
+            )}
+
+            {note.nextSteps.length > 0 && (
+              <div>
+                <SectionLabel>Next Steps</SectionLabel>
+                <BulletList items={note.nextSteps} />
+              </div>
+            )}
+
+            <div>
+              <SectionLabel>When to Escalate</SectionLabel>
+              <p className="text-sm whitespace-pre-wrap">{note.escalation}</p>
+            </div>
+
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
+              <p className="text-xs text-amber-800">{note.disclaimer}</p>
+            </div>
           </div>
         </div>
       ))}

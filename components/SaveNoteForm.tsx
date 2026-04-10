@@ -19,9 +19,12 @@ export default function SaveNoteForm({ result, concern, onSaved }: Props) {
       id: Date.now().toString(),
       studentName: studentName || "Unnamed Student",
       concern,
-      response: result.response,
+      interpretation: result.interpretation,
       strategies: result.strategies,
-      followUp: result.followUp,
+      scripts: result.scripts,
+      nextSteps: result.nextSteps,
+      escalation: result.escalation,
+      disclaimer: result.disclaimer,
       createdAt: new Date().toISOString(),
     };
     saveNote(note);

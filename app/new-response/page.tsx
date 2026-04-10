@@ -9,8 +9,7 @@ import ContextFields from "@/components/ContextFields";
 import GenerateButton from "@/components/GenerateButton";
 import ResultsCard from "@/components/ResultsCard";
 import SaveNoteForm from "@/components/SaveNoteForm";
-import { generateSupportResponse } from "@/lib/openai";
-import { GenerateResponse } from "@/lib/types";
+import { GenerateRequest, GenerateResponse } from "@/lib/types";
 
 export default function NewResponsePage() {
   const router = useRouter();
@@ -42,17 +41,29 @@ export default function NewResponsePage() {
     setError("");
     setResult(null);
     try {
-      const response = await generateSupportResponse({
+      const body: GenerateRequest = {
         concern,
         observations,
         teacherNotes: notes,
         ageGroup,
         setting,
         frequency,
+      };
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
       });
-      setResult(response);
-    } catch {
-      setError("Failed to generate response. Please check your API key and try again.");
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to generate response");
+      }
+      const data: GenerateResponse = await res.json();
+      setResult(data);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to generate response.";
+      setError(message);
     } finally {
       setLoading(false);
     }
