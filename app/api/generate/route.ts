@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { concern, observations, teacherNotes, studentName, gradeLevel, subject } =
+  const { concern, observations, teacherNotes, ageGroup, setting, frequency } =
     await req.json();
 
   const apiKey = process.env.OPENAI_API_KEY;
@@ -12,18 +12,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const prompt = `You are an experienced education consultant helping a teacher with a classroom concern.
+  const prompt = `You are an experienced UK education consultant and SENCO advisor helping a teacher with a pupil concern.
 
 Concern type: ${concern}
 Observations: ${observations.join(", ")}
-${studentName ? `Student: ${studentName}` : ""}
-${gradeLevel ? `Grade level: ${gradeLevel}` : ""}
-${subject ? `Subject: ${subject}` : ""}
+${ageGroup ? `Age group: ${ageGroup}` : ""}
+${setting ? `Setting: ${setting}` : ""}
+${frequency ? `Frequency: ${frequency}` : ""}
 ${teacherNotes ? `Teacher's additional notes: ${teacherNotes}` : ""}
 
 Provide a JSON response with exactly these fields:
-- "response": A warm, professional paragraph addressing the teacher's concern with specific, actionable advice.
-- "strategies": An array of 3-5 concrete strategies the teacher can implement immediately.
+- "response": A warm, professional paragraph addressing the teacher's concern with specific, actionable advice tailored to the UK education context.
+- "strategies": An array of 3-5 concrete strategies the teacher can implement immediately in the classroom.
 - "followUp": A brief follow-up plan describing next steps and timeline for checking progress.
 
 Respond ONLY with valid JSON.`;

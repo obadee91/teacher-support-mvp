@@ -1,57 +1,25 @@
 "use client";
 
-const observationsByType: Record<string, string[]> = {
-  behavior: [
-    "Disrupts class frequently",
-    "Difficulty following instructions",
-    "Aggressive toward peers",
-    "Refuses to participate",
-  ],
-  academic: [
-    "Falling behind on assignments",
-    "Struggles with reading comprehension",
-    "Difficulty with math concepts",
-    "Poor test performance",
-  ],
-  social: [
-    "Withdrawn from peers",
-    "Frequent emotional outbursts",
-    "Difficulty making friends",
-    "Signs of anxiety or stress",
-  ],
-  attendance: [
-    "Frequent absences",
-    "Chronic tardiness",
-    "Leaves class early",
-    "Missing after lunch/breaks",
-  ],
-  parent: [
-    "Unresponsive to contact",
-    "Difficult conversations",
-    "Language barrier",
-    "Disagreement on approach",
-  ],
-  motivation: [
-    "Won't start tasks",
-    "Gives up easily",
-    "Seems bored or disengaged",
-    "Only engages with certain subjects",
-  ],
-};
+const observations = [
+  "Easily distracted",
+  "Refuses instructions",
+  "Seems withdrawn",
+  "Disrupts class",
+  "Avoids tasks",
+  "Anxious before activities",
+  "Struggles with transitions",
+  "Difficulty interacting with peers",
+];
 
 interface Props {
-  concernId: string;
   selected: string[];
   onChange: (observations: string[]) => void;
 }
 
 export default function ObservationCheckboxGroup({
-  concernId,
   selected,
   onChange,
 }: Props) {
-  const options = observationsByType[concernId] || [];
-
   const toggle = (obs: string) => {
     if (selected.includes(obs)) {
       onChange(selected.filter((s) => s !== obs));
@@ -60,15 +28,14 @@ export default function ObservationCheckboxGroup({
     }
   };
 
-  if (!concernId) return null;
-
   return (
     <div>
-      <label className="block text-sm font-medium mb-2">
-        What have you observed?
-      </label>
-      <div className="space-y-2">
-        {options.map((obs) => (
+      <h2 className="text-base font-semibold mb-1">Observations</h2>
+      <p className="text-sm text-gray-mid mb-3">
+        Select all that apply.
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {observations.map((obs) => (
           <label
             key={obs}
             className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
@@ -81,7 +48,7 @@ export default function ObservationCheckboxGroup({
               type="checkbox"
               checked={selected.includes(obs)}
               onChange={() => toggle(obs)}
-              className="w-5 h-5 rounded accent-accent"
+              className="w-5 h-5 rounded accent-accent shrink-0"
             />
             <span className="text-sm">{obs}</span>
           </label>

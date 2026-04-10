@@ -1,22 +1,15 @@
 export interface ConcernOption {
   id: string;
   label: string;
-  category: string;
-}
-
-export interface ObservationOption {
-  id: string;
-  label: string;
-  concernId: string;
 }
 
 export interface GenerateRequest {
   concern: string;
   observations: string[];
   teacherNotes: string;
-  studentName?: string;
-  gradeLevel?: string;
-  subject?: string;
+  ageGroup?: string;
+  setting?: string;
+  frequency?: string;
 }
 
 export interface GenerateResponse {

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import ConcernSelector from "@/components/ConcernSelector";
 import ObservationCheckboxGroup from "@/components/ObservationCheckboxGroup";
 import TeacherNotesInput from "@/components/TeacherNotesInput";
@@ -12,27 +13,42 @@ import { generateSupportResponse } from "@/lib/openai";
 import { GenerateResponse } from "@/lib/types";
 
 export default function NewResponsePage() {
+  const router = useRouter();
   const [concern, setConcern] = useState("");
   const [observations, setObservations] = useState<string[]>([]);
   const [notes, setNotes] = useState("");
-  const [studentName, setStudentName] = useState("");
-  const [gradeLevel, setGradeLevel] = useState("");
-  const [subject, setSubject] = useState("");
+  const [ageGroup, setAgeGroup] = useState("");
+  const [setting, setSetting] = useState("");
+  const [frequency, setFrequency] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<GenerateResponse | null>(null);
   const [error, setError] = useState("");
+  const [validationError, setValidationError] = useState("");
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("classsupport_isLoggedIn");
+    if (isLoggedIn !== "true") {
+      router.replace("/login");
+    }
+  }, [router]);
 
   const handleGenerate = async () => {
+    if (!concern) {
+      setValidationError("Please select a concern before generating.");
+      return;
+    }
+    setValidationError("");
     setLoading(true);
     setError("");
+    setResult(null);
     try {
       const response = await generateSupportResponse({
         concern,
         observations,
         teacherNotes: notes,
-        studentName,
-        gradeLevel,
-        subject,
+        ageGroup,
+        setting,
+        frequency,
       });
       setResult(response);
     } catch {
@@ -43,36 +59,47 @@ export default function NewResponsePage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       <div>
-        <h1 className="text-2xl font-bold">New Response</h1>
+        <h1 className="text-2xl font-bold">New Support Response</h1>
         <p className="text-gray-mid text-sm mt-1">
-          Describe the situation and get tailored support.
+          Describe the situation and get tailored strategies.
         </p>
       </div>
 
-      <div className="rounded-xl border border-border bg-white p-5 shadow-sm space-y-5">
-        <ConcernSelector selected={concern} onSelect={setConcern} />
+      {/* Section A – Concern */}
+      <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
+        <ConcernSelector selected={concern} onSelect={(id) => { setConcern(id); setValidationError(""); }} />
+      </div>
+
+      {/* Section B – Observations */}
+      <div className="rounded-xl border border-border bg-white p-5 shadow-sm space-y-4">
         <ObservationCheckboxGroup
-          concernId={concern}
           selected={observations}
           onChange={setObservations}
         />
-        <ContextFields
-          studentName={studentName}
-          gradeLevel={gradeLevel}
-          subject={subject}
-          onStudentNameChange={setStudentName}
-          onGradeLevelChange={setGradeLevel}
-          onSubjectChange={setSubject}
-        />
         <TeacherNotesInput value={notes} onChange={setNotes} />
-        <GenerateButton
-          onClick={handleGenerate}
-          loading={loading}
-          disabled={!concern}
+      </div>
+
+      {/* Section C – Pupil Context */}
+      <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
+        <ContextFields
+          ageGroup={ageGroup}
+          setting={setting}
+          frequency={frequency}
+          onAgeGroupChange={setAgeGroup}
+          onSettingChange={setSetting}
+          onFrequencyChange={setFrequency}
         />
       </div>
+
+      {/* Section D – Generate */}
+      <GenerateButton
+        onClick={handleGenerate}
+        loading={loading}
+        disabled={false}
+        validationError={validationError}
+      />
 
       {error && (
         <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-red-700 text-sm">
@@ -81,14 +108,14 @@ export default function NewResponsePage() {
       )}
 
       {result && (
-        <>
+        <div className="space-y-6">
           <ResultsCard result={result} />
           <SaveNoteForm
             result={result}
             concern={concern}
             onSaved={() => {}}
           />
-        </>
+        </div>
       )}
     </div>
   );

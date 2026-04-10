@@ -1,14 +1,13 @@
 "use client";
 
-import { ConcernOption } from "@/lib/types";
-
-const concerns: ConcernOption[] = [
-  { id: "behavior", label: "Behavior & Discipline", category: "Classroom" },
-  { id: "academic", label: "Academic Struggles", category: "Learning" },
-  { id: "social", label: "Social-Emotional", category: "Wellbeing" },
-  { id: "attendance", label: "Attendance Issues", category: "Engagement" },
-  { id: "parent", label: "Parent Communication", category: "Communication" },
-  { id: "motivation", label: "Low Motivation", category: "Engagement" },
+const concerns = [
+  { id: "behaviour", label: "Behaviour" },
+  { id: "anxiety", label: "Anxiety" },
+  { id: "attention", label: "Attention / Focus" },
+  { id: "emotional-regulation", label: "Emotional Regulation" },
+  { id: "social-interaction", label: "Social Interaction" },
+  { id: "learning-engagement", label: "Learning Engagement" },
+  { id: "other", label: "Other" },
 ];
 
 interface Props {
@@ -19,23 +18,23 @@ interface Props {
 export default function ConcernSelector({ selected, onSelect }: Props) {
   return (
     <div>
-      <label className="block text-sm font-medium mb-2">
-        What type of concern?
-      </label>
-      <div className="grid grid-cols-2 gap-2">
+      <h2 className="text-base font-semibold mb-1">Type of concern</h2>
+      <p className="text-sm text-gray-mid mb-3">
+        Select the area you need support with.
+      </p>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {concerns.map((c) => (
           <button
             key={c.id}
             type="button"
             onClick={() => onSelect(c.id)}
-            className={`p-3 rounded-lg border text-left text-sm font-medium transition-colors ${
+            className={`p-4 rounded-lg border text-sm font-medium text-center transition-colors ${
               selected === c.id
-                ? "border-accent bg-green-50 text-accent"
+                ? "border-accent bg-green-50 text-accent ring-2 ring-accent"
                 : "border-border hover:border-gray-mid"
             }`}
           >
-            <span className="block">{c.label}</span>
-            <span className="text-xs text-gray-mid">{c.category}</span>
+            {c.label}
           </button>
         ))}
       </div>
