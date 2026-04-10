@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ConcernSelector from "@/components/ConcernSelector";
 import ObservationCheckboxGroup from "@/components/ObservationCheckboxGroup";
@@ -13,6 +13,7 @@ import { GenerateRequest, GenerateResponse } from "@/lib/types";
 
 export default function NewResponsePage() {
   const router = useRouter();
+  const resultsRef = useRef<HTMLDivElement>(null);
   const [concern, setConcern] = useState("");
   const [observations, setObservations] = useState<string[]>([]);
   const [notes, setNotes] = useState("");
@@ -60,6 +61,9 @@ export default function NewResponsePage() {
       }
       const data: GenerateResponse = await res.json();
       setResult(data);
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Failed to generate response.";
@@ -119,8 +123,11 @@ export default function NewResponsePage() {
       )}
 
       {result && (
-        <div className="space-y-6">
-          <ResultsCard result={result} />
+        <div ref={resultsRef} className="space-y-6">
+          <div className="border-t border-border pt-6">
+            <h2 className="text-xl font-bold mb-4">Results</h2>
+            <ResultsCard result={result} />
+          </div>
           <SaveNoteForm
             result={result}
             concern={concern}
