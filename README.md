@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ClassSupport
+
+AI-powered pupil support tool for teachers. Generate practical, classroom-friendly strategies based on pupil behaviour, attention, or anxiety concerns. Save and review notes over time.
+
+## Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **AI:** OpenAI GPT-4o-mini
+- **Storage:** localStorage (MVP)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- An OpenAI API key
+
+### Installation
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+### Run Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Folder Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  page.tsx              # Root redirect (login or dashboard)
+  layout.tsx            # Global layout with Navbar
+  login/page.tsx        # Login page (MVP: any credentials)
+  dashboard/page.tsx    # Dashboard with quick actions
+  new-response/page.tsx # Form to generate support strategies
+  saved-notes/page.tsx  # View and manage saved notes
+  api/generate/route.ts # OpenAI API route
+  error.tsx             # Global error boundary
+  loading.tsx           # Global loading state
 
-## Learn More
+components/
+  Navbar.tsx                 # Navigation with mobile hamburger menu
+  LoginForm.tsx              # Email/password login form
+  ConcernSelector.tsx        # Concern type card selector
+  ObservationCheckboxGroup.tsx # Behaviour observation checkboxes
+  TeacherNotesInput.tsx      # Free-text teacher notes
+  ContextFields.tsx          # Age group, setting, frequency dropdowns
+  GenerateButton.tsx         # Generate button with loading spinner
+  ResultsCard.tsx            # AI response display (6 sections)
+  SaveNoteForm.tsx           # Save note with pupil ID and notes
+  SavedNotesList.tsx         # Saved notes list with expand/delete
 
-To learn more about Next.js, take a look at the following resources:
+lib/
+  openai.ts   # OpenAI client and prompt construction
+  storage.ts  # localStorage helpers (saveNote, getNotes, deleteNote, getNoteById)
+  types.ts    # TypeScript interfaces
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## User Flow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Login** - Enter any email/password (MVP demo)
+2. **Dashboard** - View saved note count, quick links
+3. **New Response** - Select concern, observations, context, generate AI strategies
+4. **Save Note** - Attach pupil initials and teacher notes
+5. **Saved Notes** - View, expand, or delete saved notes
