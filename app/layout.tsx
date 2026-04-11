@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -14,6 +14,13 @@ export const metadata: Metadata = {
   description: "AI-powered support for teachers managing classroom challenges",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,9 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} font-sans antialiased bg-gray-light min-h-screen`}>
+      <body className={`${geistSans.variable} font-sans antialiased bg-gray-light min-h-screen overflow-x-hidden`}>
         <Navbar />
-        <main className="max-w-4xl mx-auto px-4 py-6">{children}</main>
+        <main className="max-w-4xl mx-auto px-4 py-6 animate-page-in">
+          {children}
+        </main>
       </body>
     </html>
   );

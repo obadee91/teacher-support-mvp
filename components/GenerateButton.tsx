@@ -14,7 +14,7 @@ export default function GenerateButton({ onClick, loading, disabled, validationE
         type="button"
         onClick={onClick}
         disabled={disabled || loading}
-        className="w-full py-4 rounded-lg bg-accent text-white font-semibold text-lg hover:bg-accent-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full min-h-[52px] py-4 rounded-lg bg-accent text-white font-semibold text-lg hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
       >
         {loading && (
           <svg

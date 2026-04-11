@@ -26,7 +26,7 @@ function ConcernBadge({ concern }: { concern: string }) {
     .replace(/-/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
   return (
-    <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${color}`}>
+    <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium ${color}`}>
       {label}
     </span>
   );
@@ -59,14 +59,14 @@ export default function SavedNotesList({ notes, onDelete }: Props) {
             className="rounded-xl border border-border bg-white shadow-sm overflow-hidden"
           >
             {/* Collapsed card header */}
-            <div className="p-5">
+            <div className="p-4 sm:p-5">
               <div className="flex justify-between items-start gap-3">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
                     <h3 className="font-semibold text-lg">{note.pupilId}</h3>
                     <ConcernBadge concern={note.concern} />
                   </div>
-                  <p className="text-xs text-gray-mid">{note.date}</p>
+                  <p className="text-sm text-gray-mid">{note.date}</p>
                   {!isExpanded && preview && (
                     <p className="text-sm text-gray-mid mt-2 line-clamp-2">
                       {preview}
@@ -76,10 +76,10 @@ export default function SavedNotesList({ notes, onDelete }: Props) {
               </div>
 
               {/* Action buttons */}
-              <div className="flex gap-2 mt-3">
+              <div className="flex flex-wrap gap-2 mt-3">
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : note.id)}
-                  className="px-4 py-2 rounded-lg border border-accent text-accent text-sm font-medium hover:bg-green-50 transition-colors"
+                  className="min-h-[44px] px-4 flex items-center rounded-lg border border-accent text-accent text-sm font-medium hover:bg-green-50 active:scale-[0.97] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 >
                   {isExpanded ? "Collapse" : "View Full"}
                 </button>
@@ -87,22 +87,22 @@ export default function SavedNotesList({ notes, onDelete }: Props) {
                 {!isConfirming ? (
                   <button
                     onClick={() => setConfirmDeleteId(note.id)}
-                    className="px-4 py-2 rounded-lg border border-border text-red-500 text-sm font-medium hover:bg-red-50 hover:border-red-200 transition-colors"
+                    className="min-h-[44px] px-4 flex items-center rounded-lg border border-border text-red-500 text-sm font-medium hover:bg-red-50 hover:border-red-200 active:scale-[0.97] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2"
                   >
                     Delete
                   </button>
                 ) : (
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="text-sm text-red-600">Are you sure?</span>
                     <button
                       onClick={() => handleDelete(note.id)}
-                      className="px-3 py-2 rounded-lg bg-red-500 text-white text-sm font-medium hover:bg-red-600 transition-colors"
+                      className="min-h-[44px] px-4 flex items-center rounded-lg bg-red-500 text-white text-sm font-medium hover:bg-red-600 active:scale-[0.97] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2"
                     >
                       Yes, delete
                     </button>
                     <button
                       onClick={() => setConfirmDeleteId(null)}
-                      className="px-3 py-2 rounded-lg border border-border text-sm font-medium hover:bg-gray-light transition-colors"
+                      className="min-h-[44px] px-4 flex items-center rounded-lg border border-border text-sm font-medium hover:bg-gray-light active:scale-[0.97] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     >
                       Cancel
                     </button>
@@ -113,7 +113,7 @@ export default function SavedNotesList({ notes, onDelete }: Props) {
 
             {/* Expanded detail view */}
             {isExpanded && (
-              <div className="border-t border-border bg-gray-light p-5 space-y-4">
+              <div className="border-t border-border bg-gray-light p-4 sm:p-5 space-y-4 animate-fade-in">
                 {note.note && (
                   <div className="rounded-lg bg-white border border-border p-4">
                     <p className="text-xs font-semibold text-gray-mid uppercase mb-1">
@@ -132,7 +132,7 @@ export default function SavedNotesList({ notes, onDelete }: Props) {
                       {note.observations.map((obs) => (
                         <span
                           key={obs}
-                          className="inline-block px-2 py-1 rounded-md bg-gray-light border border-border text-xs"
+                          className="inline-block px-2.5 py-1 rounded-md bg-gray-light border border-border text-xs"
                         >
                           {obs}
                         </span>

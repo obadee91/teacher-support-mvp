@@ -41,13 +41,13 @@ export default function DashboardPage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
           href="/new-response"
-          className="flex-1 py-4 rounded-lg bg-accent text-white font-semibold text-lg text-center hover:bg-accent-hover transition-colors"
+          className="flex-1 min-h-[52px] py-4 rounded-lg bg-accent text-white font-semibold text-lg text-center hover:bg-accent-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
         >
           Create New Support Response
         </Link>
         <Link
           href="/saved-notes"
-          className="flex-1 py-4 rounded-lg border-2 border-accent text-accent font-semibold text-lg text-center hover:bg-green-50 transition-colors"
+          className="flex-1 min-h-[52px] py-4 rounded-lg border-2 border-accent text-accent font-semibold text-lg text-center hover:bg-green-50 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
         >
           View Saved Notes
         </Link>

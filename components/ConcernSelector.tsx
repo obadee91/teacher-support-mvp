@@ -28,7 +28,7 @@ export default function ConcernSelector({ selected, onSelect }: Props) {
             key={c.id}
             type="button"
             onClick={() => onSelect(c.id)}
-            className={`p-4 rounded-lg border text-sm font-medium text-center transition-colors ${
+            className={`min-h-[48px] p-3 sm:p-4 rounded-lg border text-sm font-medium text-center transition-all active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
               selected === c.id
                 ? "border-accent bg-green-50 text-accent ring-2 ring-accent"
                 : "border-border hover:border-gray-mid"

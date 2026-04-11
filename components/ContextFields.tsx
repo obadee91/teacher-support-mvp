@@ -10,7 +10,7 @@ interface Props {
 }
 
 const selectClass =
-  "w-full px-4 py-3 rounded-lg border border-border text-foreground bg-white focus:outline-none focus:ring-2 focus:ring-accent appearance-none";
+  "w-full min-h-[44px] px-4 py-3 rounded-lg border border-border text-base text-foreground bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-shadow appearance-none";
 
 export default function ContextFields({
   ageGroup,

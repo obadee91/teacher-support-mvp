@@ -69,7 +69,7 @@ export default function SaveNoteForm({
             value={pupilId}
             onChange={(e) => { setPupilId(e.target.value); setError(""); }}
             placeholder="e.g. J.S."
-            className="w-full px-4 py-3 rounded-lg border border-border text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full min-h-[44px] px-4 py-3 rounded-lg border border-border text-base text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-shadow"
           />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
@@ -84,13 +84,13 @@ export default function SaveNoteForm({
             onChange={(e) => setNote(e.target.value)}
             placeholder="Add any additional context or follow-up actions..."
             rows={3}
-            className="w-full px-4 py-3 rounded-lg border border-border text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent resize-none"
+            className="w-full min-h-[44px] px-4 py-3 rounded-lg border border-border text-base text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-shadow resize-none"
           />
         </div>
 
         <button
           onClick={handleSave}
-          className="w-full py-3 rounded-lg bg-accent text-white font-medium text-lg hover:bg-accent-hover transition-colors"
+          className="w-full min-h-[48px] py-3 rounded-lg bg-accent text-white font-medium text-lg hover:bg-accent-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
         >
           Save Note
         </button>
@@ -98,8 +98,8 @@ export default function SaveNoteForm({
 
       {/* Success toast */}
       {toast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-lg bg-accent text-white font-medium shadow-lg flex items-center gap-2 animate-fade-in">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <div className="fixed bottom-6 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-auto z-50 px-6 py-3 rounded-lg bg-accent text-white font-medium shadow-lg flex items-center justify-center gap-2 animate-fade-in">
+          <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
           Note saved successfully

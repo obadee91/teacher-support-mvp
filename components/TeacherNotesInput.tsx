@@ -17,7 +17,7 @@ export default function TeacherNotesInput({ value, onChange }: Props) {
         onChange={(e) => onChange(e.target.value)}
         placeholder="Pupil becomes unsettled during transitions and often avoids independent work."
         rows={3}
-        className="w-full px-4 py-3 rounded-lg border border-border text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent resize-none"
+        className="w-full min-h-[44px] px-4 py-3 rounded-lg border border-border text-base text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-shadow resize-none"
       />
     </div>
   );

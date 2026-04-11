@@ -39,7 +39,7 @@ export default function SavedNotesPage() {
       {/* Back button */}
       <Link
         href="/dashboard"
-        className="inline-flex items-center gap-1 text-sm text-gray-mid hover:text-foreground transition-colors"
+        className="inline-flex items-center gap-1 min-h-[44px] text-sm text-gray-mid hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:rounded"
       >
         <svg
           className="w-4 h-4"
@@ -84,7 +84,7 @@ export default function SavedNotesPage() {
             </p>
             <Link
               href="/new-response"
-              className="inline-block px-6 py-3 rounded-lg bg-accent text-white font-medium hover:bg-accent-hover transition-colors"
+              className="inline-block min-h-[48px] px-6 py-3 rounded-lg bg-accent text-white font-medium hover:bg-accent-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             >
               Create New Response
             </Link>

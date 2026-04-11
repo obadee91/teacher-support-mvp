@@ -38,7 +38,7 @@ export default function ObservationCheckboxGroup({
         {observations.map((obs) => (
           <label
             key={obs}
-            className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+            className={`flex items-center gap-3 min-h-[48px] p-3 rounded-lg border cursor-pointer transition-all active:scale-[0.98] focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-1 ${
               selected.includes(obs)
                 ? "border-accent bg-green-50"
                 : "border-border hover:border-gray-mid"
@@ -48,7 +48,7 @@ export default function ObservationCheckboxGroup({
               type="checkbox"
               checked={selected.includes(obs)}
               onChange={() => toggle(obs)}
-              className="w-5 h-5 rounded accent-accent shrink-0"
+              className="w-5 h-5 rounded accent-accent shrink-0 focus:outline-none"
             />
             <span className="text-sm">{obs}</span>
           </label>

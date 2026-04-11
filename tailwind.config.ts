@@ -18,13 +18,18 @@ const config: Config = {
         "gray-mid": "#6b7280",
       },
       keyframes: {
-        "fade-in": {
-          "0%": { opacity: "0", transform: "translateX(-50%) translateY(10px)" },
-          "100%": { opacity: "1", transform: "translateX(-50%) translateY(0)" },
+        "fade-in-up": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "page-in": {
+          "0%": { opacity: "0", transform: "translateY(4px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
-        "fade-in": "fade-in 0.3s ease-out",
+        "fade-in": "fade-in-up 0.3s ease-out",
+        "page-in": "page-in 0.2s ease-out",
       },
     },
   },

@@ -29,7 +29,7 @@ export default function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@school.edu"
-          className="w-full px-4 py-3 rounded-lg border border-border text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full min-h-[44px] px-4 py-3 rounded-lg border border-border text-base text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-shadow"
         />
       </div>
       <div>
@@ -42,12 +42,12 @@ export default function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter any password"
-          className="w-full px-4 py-3 rounded-lg border border-border text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full min-h-[44px] px-4 py-3 rounded-lg border border-border text-base text-foreground placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-shadow"
         />
       </div>
       <button
         type="submit"
-        className="w-full py-3 rounded-lg bg-accent text-white font-medium text-lg hover:bg-accent-hover transition-colors"
+        className="w-full min-h-[48px] py-3 rounded-lg bg-accent text-white font-medium text-lg hover:bg-accent-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
       >
         Log In
       </button>
